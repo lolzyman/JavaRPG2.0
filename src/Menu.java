@@ -1,11 +1,9 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.nio.Buffer;
 
 public class Menu extends JPanel
 {
@@ -18,7 +16,7 @@ public class Menu extends JPanel
 
         try
         {
-            image = ImageIO.read(getClass().getResourceAsStream("nonClass/menuBackground.png"));
+            image = ImageIO.read(getClass().getResourceAsStream("nonClass/guy_girl_dragon.jpg"));
         }
 
         catch(IOException e)
@@ -42,29 +40,38 @@ public class Menu extends JPanel
         //Set so buttons are aligned on y axis
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
-        //Create Rigid Area to format buttons location
-        Component rigidArea = Box.createRigidArea(new Dimension(150,150));
-        frame.getContentPane().add(rigidArea);
+        //Position the Buttons on the Screen
+        Dimension minSize = new Dimension(15,375);
+        Dimension prefSize = new Dimension(15,375);
+        Dimension maxSize = new Dimension(Short.MAX_VALUE, 375);
+        Component customFiller = new Box.Filler(minSize, prefSize, maxSize);
+        frame.getContentPane().add(customFiller);
 
         //Add Play Button
         playButtonAction plyBttAct = new playButtonAction();
-        JButton playButton = new JButton(null, createImageIcon("nonClass/startButton.png"));
+        JButton playButton = new JButton(null, createImageIcon("nonClass/button-6.png"));
+        playButton.setOpaque(false);
+        playButton.setContentAreaFilled(false);
+        playButton.setBorderPainted(false);
         plyBttAct.setFrame(frame);
-        playButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         frame.getContentPane().add(playButton);
         playButton.addActionListener(plyBttAct);
 
         //Add Credits Button
         creditButtonAction crdtBttAct = new creditButtonAction();
-        JButton creditButton = new JButton(null, createImageIcon("nonClass/creditsButton.png"));
+        JButton creditButton = new JButton(null, createImageIcon("nonClass/button-7.png"));
+        creditButton.setOpaque(false);
+        creditButton.setContentAreaFilled(false);
+        creditButton.setBorderPainted(false);
         crdtBttAct.setFrame(frame);
-        creditButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         frame.getContentPane().add(creditButton);
         creditButton.addActionListener(crdtBttAct);
 
         //Add Quit Button
-        JButton quitButton = new JButton(null, createImageIcon("nonClass/exitButton.png"));
-        quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton quitButton = new JButton(null, createImageIcon("nonClass/button-8.png"));
+        quitButton.setOpaque(false);
+        quitButton.setContentAreaFilled(false);
+        quitButton.setBorderPainted(false);
         frame.getContentPane().add(quitButton);
         quitButton.addActionListener(new quitButtonAction());
 
@@ -98,7 +105,7 @@ public class Menu extends JPanel
         {
             frame.getContentPane().removeAll();
 
-            World w = new World();
+            World w = new World(frame);
             frame.getContentPane().add(w);
 
             frame.getContentPane().revalidate();
@@ -140,7 +147,10 @@ public class Menu extends JPanel
 
             //Add Back Button
             backButtonAction bckBttAct = new backButtonAction();
-            JButton backButton = new JButton(null, createImageIcon("nonClass/backButton.png"));
+            JButton backButton = new JButton(null, createImageIcon("nonClass/button-9.png"));
+            backButton.setOpaque(false);
+            backButton.setContentAreaFilled(false);
+            backButton.setBorderPainted(false);
             bckBttAct.setFrame(frame);
             backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
             frame.getContentPane().add(backButton);

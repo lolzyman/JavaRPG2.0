@@ -11,7 +11,7 @@ public class World extends JPanel implements ActionListener
     //<editor-fold desc=".">
     //Dictates the period of the ActionListener
     //</editor-fold>
-	int timerSpeed = 10;
+	int timerSpeed = 5;
     //<editor-fold desc=".">
     //Defines the timer to call the method ActionPerformed
     //</editor-fold>
@@ -61,10 +61,21 @@ public class World extends JPanel implements ActionListener
     //</editor-fold>
 
     int masterOffsetx, masterOffsety;
+
+    JFrame frame;
+
     //Constructor
-    public World(){
+    public World(JFrame frm){
         setFocusTraversalKeysEnabled(false);		//not sure what this crap does
-        
+
+        frame = frm;
+
+        //add listener for escape key
+        escapeListener esc = new escapeListener();
+        frm.addKeyListener(esc);
+        esc.addFrame(frame);
+
+
         //Class that is based around importing from csv files
         ImportCSV importer = new ImportCSV();
         //imports the terrain data for the map.
@@ -123,7 +134,7 @@ public class World extends JPanel implements ActionListener
         Graphics2D g2 = (Graphics2D)g;
     	//sets the background color to red so it stands out if we are breaking anything
     	//Will set to black in the final iteration
-    	setBackground(Color.RED);
+    	setBackground(Color.BLACK);
     	//draws the background image at its location
     	//will try and turn this into a class-local method if possible
         g.drawImage(back.getImage(), back.getX() - masterOffsetx, back.getY() - masterOffsety, null);
@@ -232,4 +243,25 @@ public class World extends JPanel implements ActionListener
         }
     }
 
+    private static class escapeListener extends KeyAdapter
+    {
+        JFrame frame;
+
+        public void addFrame(JFrame frm)
+        {
+            frame = frm;
+        }
+
+        public void keyPressed(KeyEvent e)
+        {
+            int keyCode = e.getKeyCode();
+
+            if (keyCode == e.VK_ESCAPE)
+            {
+                Menu menu = new Menu(frame);
+                frame.removeKeyListener(escapeListener.this);
+                menu.addButtons();
+            }
+        }
+    }
 }
