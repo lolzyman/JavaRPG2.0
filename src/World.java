@@ -261,6 +261,9 @@ public class World extends JPanel implements ActionListener
                 Menu menu = new Menu(frame);
                 frame.removeKeyListener(escapeListener.this);
                 menu.addButtons();
+
+                //EscapeMenu escape = new EscapeMenu(frame);
+                //escape.addButtons();
             }
         }
     }

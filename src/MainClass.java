@@ -1,14 +1,11 @@
 import javax.swing.JFrame;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class MainClass
 {
     public static void main(String args [])
     {
-        int escape = KeyEvent.VK_ESCAPE;
-
         JFrame f = new JFrame("Java RPG");
 
         f.setFocusable(true);
