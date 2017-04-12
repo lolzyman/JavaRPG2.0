@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class Menu extends JPanel
 {
+
     JFrame frame;
     private BufferedImage image;
 
