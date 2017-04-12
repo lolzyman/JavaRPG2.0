@@ -16,7 +16,7 @@ public class Menu extends JPanel
 
         try
         {
-            image = ImageIO.read(getClass().getResourceAsStream("nonClass/guy_girl_dragon.jpg"));
+            image = ImageIO.read(getClass().getResourceAsStream("nonClass/Cover_Girl.jpg"));
         }
 
         catch(IOException e)
@@ -33,7 +33,7 @@ public class Menu extends JPanel
             public void paintComponent(Graphics g)
             {
                 super.paintComponent(g);
-                g.drawImage(image, 0, 0, 512, 512, this);
+                g.drawImage(image, 0, 0, 712, 512, this);
             }
         });
 
