@@ -71,9 +71,14 @@ public class World extends JPanel implements ActionListener
         frame = frm;
 
         //add listener for escape key
-        escapeListener esc = new escapeListener();
-        frm.addKeyListener(esc);
-        esc.addFrame(frame);
+        //escapeListener esc = new escapeListener();
+        //frame.addKeyListener(esc);
+        //esc.addFrame(frame);
+
+        //EscapeListener esc = new EscapeListener();
+        //esc.addFrame(frame);
+        //frame.addKeyListener(esc);
+
 
 
         //Class that is based around importing from csv files
@@ -243,6 +248,7 @@ public class World extends JPanel implements ActionListener
         }
     }
 
+    /*
     private static class escapeListener extends KeyAdapter
     {
         JFrame frame;
@@ -258,13 +264,15 @@ public class World extends JPanel implements ActionListener
 
             if (keyCode == e.VK_ESCAPE)
             {
-                Menu menu = new Menu(frame);
+                //Menu menu = new Menu(frame);
                 frame.removeKeyListener(escapeListener.this);
-                menu.addButtons();
+                //menu.addButtons();
 
-                //EscapeMenu escape = new EscapeMenu(frame);
-                //escape.addButtons();
+                System.out.println("Escape Listener Working");
+
+                EscapeMenu escapeMenu = new EscapeMenu(frame);
+                escapeMenu.escape();
             }
         }
-    }
+    }*/
 }

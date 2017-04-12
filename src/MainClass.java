@@ -1,4 +1,4 @@
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -8,9 +8,11 @@ public class MainClass
     {
         JFrame f = new JFrame("Java RPG");
 
+        f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
         f.setFocusable(true);
 
-        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         //<editor-fold desc="Sets the size of the screen">
         //The Height and width values have been set so that they match the grid perfectly.
         f.setSize(502, 525);

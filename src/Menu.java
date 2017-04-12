@@ -10,6 +10,11 @@ public class Menu extends JPanel
     JFrame frame;
     private BufferedImage image;
 
+    public Menu()
+    {
+
+    }
+
     public Menu(JFrame frm)
     {
         frame = frm;
@@ -75,6 +80,7 @@ public class Menu extends JPanel
         frame.getContentPane().add(quitButton);
         quitButton.addActionListener(new quitButtonAction());
 
+
         frame.setVisible(true);
     }
 
@@ -104,6 +110,10 @@ public class Menu extends JPanel
         public void actionPerformed(ActionEvent e)
         {
             frame.getContentPane().removeAll();
+
+            EscapeListener esc = new EscapeListener();
+            esc.addFrame(frame);
+            frame.addKeyListener(esc);
 
             World w = new World(frame);
             frame.getContentPane().add(w);
