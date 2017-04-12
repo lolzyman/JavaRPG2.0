@@ -15,7 +15,7 @@ public class MainClass
 
         //<editor-fold desc="Sets the size of the screen">
         //The Height and width values have been set so that they match the grid perfectly.
-        f.setSize(502, 525);
+        f.setSize(712, 525);
         //</editor-fold>
         f.setResizable(false);
 
