@@ -7,34 +7,38 @@ import java.io.IOException;
 
 public class Menu extends JPanel
 {
-    JFrame frame;
-    private BufferedImage image;
+    JFrame frame;                   //Space for JFrame
+    private BufferedImage image;    //Reserve space for image
 
-    public Menu()
-    {
-
-    }
-
+    /************************************
+    Constructor that receives the JFrame
+     ************************************/
     public Menu(JFrame frm)
     {
-        frame = frm;
+        frame = frm;  //Set the frame
     }
 
+
+    /********************************
+    Method to set the menu background
+    ********************************/
     public void addMenuBackground()
     {
+        //The following gets the image for the background
         try
         {
             image = ImageIO.read(getClass().getResourceAsStream("nonClass/Cover_Girl.jpg"));
         }
-
         catch(IOException e)
         {
             e.printStackTrace();
         }
 
+        //Test message to declare that this method was successfully used
         System.out.println("Image Added");
 
-        //Set Background image
+
+        //Paint Background image
         frame.setContentPane(new JPanel()
         {
             public void paintComponent(Graphics g)
@@ -45,50 +49,62 @@ public class Menu extends JPanel
         });
     }
 
+    /**************************************
+    //Method to add the buttons to the menu
+     *************************************/
     public void addButtons()
     {
         //Set so buttons are aligned on y axis
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
-        //Position the Buttons on the Screen
-        Dimension minSize = new Dimension(15,375);
-        Dimension prefSize = new Dimension(15,375);
-        Dimension maxSize = new Dimension(Short.MAX_VALUE, 375);
-        Component customFiller = new Box.Filler(minSize, prefSize, maxSize);
-        frame.getContentPane().add(customFiller);
+        /*********************************
+        Position the Buttons on the Screen
+        *********************************/
+        Dimension minSize = new Dimension(15,375);              //Set the min size
+        Dimension prefSize = new Dimension(15,375);             //Set the preferred size
+        Dimension maxSize = new Dimension(Short.MAX_VALUE, 375);       //Set the max size
+        Component customFiller = new Box.Filler(minSize, prefSize, maxSize);  //Create a custom filler to position buttons
+        frame.getContentPane().add(customFiller);                             //Add the filler to the content pane
 
-        //Add Play Button
-        playButtonAction plyBttAct = new playButtonAction();
-        JButton playButton = new JButton(null, createImageIcon("nonClass/button-6.png"));
-        playButton.setOpaque(false);
-        playButton.setContentAreaFilled(false);
-        playButton.setBorderPainted(false);
-        plyBttAct.setFrame(frame);
-        frame.getContentPane().add(playButton);
-        playButton.addActionListener(plyBttAct);
+        /**************
+        Add Play Button
+        **************/
+        playButtonAction plyBttAct = new playButtonAction();                                                                 //Create Play Button Action Listener
+        JButton playButton = new JButton(null, new ImageIcon(Menu.class.getResource("nonClass/button-6.png")));  //Create new Button and add play button image to it
+        playButton.setOpaque(false);                                                                                         //Set Button Transparent
+        playButton.setContentAreaFilled(false);                                                                              //Clear content of button
+        playButton.setBorderPainted(false);                                                                                  //Set the border of the button transparent
+        plyBttAct.setFrame(frame);                                                                                           //Send the frame to the setter in the action listener
+        frame.getContentPane().add(playButton);                                                                              //Add the play button to the content pane
+        playButton.addActionListener(plyBttAct);                                                                             //Add action listener to the button
 
-        //Add Credits Button
-        creditButtonAction crdtBttAct = new creditButtonAction();
-        JButton creditButton = new JButton(null, createImageIcon("nonClass/button-7.png"));
-        creditButton.setOpaque(false);
-        creditButton.setContentAreaFilled(false);
-        creditButton.setBorderPainted(false);
-        crdtBttAct.setFrame(frame);
-        frame.getContentPane().add(creditButton);
-        creditButton.addActionListener(crdtBttAct);
-
-        //Add Quit Button
-        JButton quitButton = new JButton(null, createImageIcon("nonClass/button-8.png"));
-        quitButton.setOpaque(false);
-        quitButton.setContentAreaFilled(false);
-        quitButton.setBorderPainted(false);
-        frame.getContentPane().add(quitButton);
-        quitButton.addActionListener(new quitButtonAction());
+        /*****************
+        Add Credits Button
+        *****************/
+        creditButtonAction crdtBttAct = new creditButtonAction();                                                              //Create Credit Button Action Listener
+        JButton creditButton = new JButton(null, new ImageIcon(Menu.class.getResource("nonClass/button-7.png")));  //Create new Button and add credit button image to it
+        creditButton.setOpaque(false);                                                                                         //Set Button Transparent
+        creditButton.setContentAreaFilled(false);                                                                              //Clear content of button
+        creditButton.setBorderPainted(false);                                                                                  //Set the border of the button transparent
+        crdtBttAct.setFrame(frame);                                                                                            //Send the frame to the setter in the action listener
+        frame.getContentPane().add(creditButton);                                                                              //Add the credit button to the content pane
+        creditButton.addActionListener(crdtBttAct);                                                                            //Add action listener to the button
 
 
-        frame.setVisible(true);
+        /**************
+        Add Quit Button
+        **************/
+        JButton quitButton = new JButton(null, new ImageIcon(Menu.class.getResource("nonClass/button-8.png")));   //Create new Button and add quit button image to it
+        quitButton.setOpaque(false);                                                                                          //Set Button Transparent
+        quitButton.setContentAreaFilled(false);                                                                               //Clear content of button
+        quitButton.setBorderPainted(false);                                                                                   //Set the border of the button transparent
+        frame.getContentPane().add(quitButton);                                                                               //Add quite button to the content pane
+        quitButton.addActionListener(new quitButtonAction());                                                                 //Add quite action listener to the button
+
+        frame.setVisible(true);  //Set the frame visible
     }
 
+    /***
     protected static ImageIcon createImageIcon(String path)
     {
         java.net.URL imgURL = Menu.class.getResource(path);
@@ -101,33 +117,45 @@ public class Menu extends JPanel
             System.err.println("Couldn't find file: " + path);
             return null;
         }
-    }
+    }**/
 
+    /********************************************
+    Class for action listener for the play button
+     *******************************************/
     static class playButtonAction implements ActionListener
     {
-        JFrame frame;
+        JFrame frame;   //Reserved for the JFrame
 
+        /**
+        Setter for the frame
+         */
         public void setFrame(JFrame frm)
         {
-            frame = frm;
+            frame = frm;  //Set the frame to the frame sent to the setter
         }
 
+        /**
+        Action Performed for the play button
+         */
         public void actionPerformed(ActionEvent e)
         {
-            frame.getContentPane().removeAll();
+            frame.getContentPane().removeAll();  //Remove everything from the content pane
 
-            World w = new World(frame);
-            frame.getContentPane().add(w);
+            World w = new World(frame);          //Create World (Send the frame to world)
+            frame.getContentPane().add(w);       //Add world to the frame
 
-            EscapeListener esc = new EscapeListener();
-            esc.addFrame(frame);
-            frame.addKeyListener(esc);
+            EscapeListener esc = new EscapeListener();   //Create a new listener for the escape key
+            esc.addFrame(frame);                         //Send the frame to the escape listeners setter
+            frame.addKeyListener(esc);                   //Add the escape listener to the frame
 
-            frame.getContentPane().revalidate();
-            frame.getContentPane().repaint();
+            frame.getContentPane().revalidate();        //Revalidate the content pane
+            frame.getContentPane().repaint();           //Repaint the content pane
         }
     }
 
+    /**********************************************
+    Class for action listener for the credit button
+     *********************************************/
     static class creditButtonAction extends JPanel implements ActionListener
     {
         JFrame frame;
@@ -137,6 +165,7 @@ public class Menu extends JPanel
             frame = frm;
         }
 
+        /**
         protected static ImageIcon createImageIcon(String path)
         {
             java.net.URL imgURL = Menu.class.getResource(path);
@@ -149,7 +178,7 @@ public class Menu extends JPanel
                 System.err.println("Couldn't find file: " + path);
                 return null;
             }
-        }
+        }*/
 
         public void actionPerformed(ActionEvent e)
         {
@@ -162,7 +191,7 @@ public class Menu extends JPanel
 
             //Add Back Button
             backButtonAction bckBttAct = new backButtonAction();
-            JButton backButton = new JButton(null, createImageIcon("nonClass/button-9.png"));
+            JButton backButton = new JButton(null, new ImageIcon(Menu.class.getResource("nonClass/button-9.png")));
             backButton.setOpaque(false);
             backButton.setContentAreaFilled(false);
             backButton.setBorderPainted(false);
