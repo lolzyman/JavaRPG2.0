@@ -183,14 +183,15 @@ public class Menu extends JPanel
             }
         }*/
 
-
+        /**
+        Action Performed for the credit button
+         */
         public void actionPerformed(ActionEvent e)
         {
             //Clear Components from frame
             frame.getContentPane().removeAll();
 
-            //Add rigid area
-            Component rigidArea = Box.createRigidArea(new Dimension(150,100));
+            Component rigidArea = Box.createRigidArea(new Dimension(150,100));  //Create a new rigid area
             frame.getContentPane().add(rigidArea);
 
             //Add Back Button
