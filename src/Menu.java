@@ -7,7 +7,6 @@ import java.io.IOException;
 
 public class Menu extends JPanel
 {
-
     JFrame frame;
     private BufferedImage image;
 
@@ -19,7 +18,10 @@ public class Menu extends JPanel
     public Menu(JFrame frm)
     {
         frame = frm;
+    }
 
+    public void addMenuBackground()
+    {
         try
         {
             image = ImageIO.read(getClass().getResourceAsStream("nonClass/Cover_Girl.jpg"));
@@ -29,10 +31,9 @@ public class Menu extends JPanel
         {
             e.printStackTrace();
         }
-    }
 
-    public void addButtons()
-    {
+        System.out.println("Image Added");
+
         //Set Background image
         frame.setContentPane(new JPanel()
         {
@@ -42,7 +43,10 @@ public class Menu extends JPanel
                 g.drawImage(image, 0, 0, 712, 512, this);
             }
         });
+    }
 
+    public void addButtons()
+    {
         //Set so buttons are aligned on y axis
         frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
 
@@ -112,12 +116,12 @@ public class Menu extends JPanel
         {
             frame.getContentPane().removeAll();
 
+            World w = new World(frame);
+            frame.getContentPane().add(w);
+
             EscapeListener esc = new EscapeListener();
             esc.addFrame(frame);
             frame.addKeyListener(esc);
-
-            World w = new World(frame);
-            frame.getContentPane().add(w);
 
             frame.getContentPane().revalidate();
             frame.getContentPane().repaint();
@@ -204,8 +208,9 @@ public class Menu extends JPanel
             //Clear Components from frame
             frame.getContentPane().removeAll();
 
-            Menu men = new Menu(frame);
-            men.addButtons();
+
+            Menu mens = new Menu(frame);
+            mens.addButtons();
 
             frame.getContentPane().revalidate();
             frame.getContentPane().repaint();

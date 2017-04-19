@@ -131,8 +131,6 @@ public class EscapeMenu
             Menu men = new Menu(frame);
             men.addButtons();
 
-
-
             frame.getContentPane().revalidate();
             frame.getContentPane().repaint();
         }

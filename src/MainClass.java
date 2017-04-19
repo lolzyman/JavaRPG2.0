@@ -6,12 +6,14 @@ public class MainClass
 {
     public static void main(String args [])
     {
+        //Create JFrame
         JFrame f = new JFrame("Java RPG");
 
+        //Set so program will exit on close
         f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
+        //Set frame focusable
         f.setFocusable(true);
-
 
         //<editor-fold desc="Sets the size of the screen">
         //The Height and width values have been set so that they match the grid perfectly.
@@ -24,9 +26,9 @@ public class MainClass
         f.setLocation(dim.width/2-f.getSize().width/2, dim.height/2-f.getSize().height/2);
 
 
-
-        Menu menu = new Menu(f);
-        menu.addButtons();
+        Menu menu = new Menu(f);    //Create Menu
+        menu.addMenuBackground();   //Add background to menu
+        menu.addButtons();          //Add buttons to menu
     }
 
 }

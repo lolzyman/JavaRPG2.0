@@ -9,6 +9,7 @@ public class EscapeListener extends KeyAdapter
 {
     JFrame frame;
 
+
     public void addFrame(JFrame frm)
     {
         frame = frm;
