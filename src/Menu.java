@@ -158,11 +158,14 @@ public class Menu extends JPanel
      *********************************************/
     static class creditButtonAction extends JPanel implements ActionListener
     {
-        JFrame frame;
+        JFrame frame;   //Space reserved for the frame
 
+        /**
+        Setter for the JFrame
+         */
         public void setFrame(JFrame frm)
         {
-            frame = frm;
+            frame = frm;     //Set frame to the frame sent through the setter
         }
 
         /**
@@ -179,6 +182,7 @@ public class Menu extends JPanel
                 return null;
             }
         }*/
+
 
         public void actionPerformed(ActionEvent e)
         {
