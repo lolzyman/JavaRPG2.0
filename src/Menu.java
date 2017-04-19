@@ -192,7 +192,7 @@ public class Menu extends JPanel
             frame.getContentPane().removeAll();
 
             Component rigidArea = Box.createRigidArea(new Dimension(150,100));  //Create a new rigid area
-            frame.getContentPane().add(rigidArea);
+            frame.getContentPane().add(rigidArea);                                            //Add rigid area to the content pane
 
             //Add Back Button
             backButtonAction bckBttAct = new backButtonAction();
