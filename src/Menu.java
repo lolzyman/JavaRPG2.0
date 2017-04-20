@@ -104,7 +104,7 @@ public class Menu extends JPanel
         frame.setVisible(true);  //Set the frame visible
     }
 
-    /***
+    /*
     protected static ImageIcon createImageIcon(String path)
     {
         java.net.URL imgURL = Menu.class.getResource(path);
@@ -117,7 +117,7 @@ public class Menu extends JPanel
             System.err.println("Couldn't find file: " + path);
             return null;
         }
-    }**/
+    }*/
 
     /********************************************
     Class for action listener for the play button
@@ -168,7 +168,7 @@ public class Menu extends JPanel
             frame = frm;     //Set frame to the frame sent through the setter
         }
 
-        /**
+        /*
         protected static ImageIcon createImageIcon(String path)
         {
             java.net.URL imgURL = Menu.class.getResource(path);
@@ -194,60 +194,76 @@ public class Menu extends JPanel
             Component rigidArea = Box.createRigidArea(new Dimension(150,100));  //Create a new rigid area
             frame.getContentPane().add(rigidArea);                                            //Add rigid area to the content pane
 
-            //Add Back Button
-            backButtonAction bckBttAct = new backButtonAction();
-            JButton backButton = new JButton(null, new ImageIcon(Menu.class.getResource("nonClass/button-9.png")));
-            backButton.setOpaque(false);
-            backButton.setContentAreaFilled(false);
-            backButton.setBorderPainted(false);
-            bckBttAct.setFrame(frame);
-            backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-            frame.getContentPane().add(backButton);
-            backButton.addActionListener(bckBttAct);
+            /**************
+            Add Back Button
+            **************/
+            backButtonAction bckBttAct = new backButtonAction();                                                                  //Create Back Button Action Listener
+            JButton backButton = new JButton(null, new ImageIcon(Menu.class.getResource("nonClass/button-9.png")));   //Create new Button and add back button image to it
+            backButton.setOpaque(false);                                                                                          //Set Button Transparent
+            backButton.setContentAreaFilled(false);                                                                               //Clear content of button
+            backButton.setBorderPainted(false);                                                                                   //Set the border of the button transparent
+            bckBttAct.setFrame(frame);                                                                                            //Send the frame to the setter in the action listener
+            backButton.setAlignmentX(Component.CENTER_ALIGNMENT);                                                                 //Set the the button to be center aligned on the x axis
+            frame.getContentPane().add(backButton);                                                                               //Add the back button to the frame
+            backButton.addActionListener(bckBttAct);                                                                              //Add action listener to the button
 
-            //Add rigid area
-            Component rigidArea2 = Box.createRigidArea(new Dimension(150,10));
-            frame.getContentPane().add(rigidArea2);
+
+            Component rigidArea2 = Box.createRigidArea(new Dimension(150,10));  //Create a second rigid area
+            frame.getContentPane().add(rigidArea2);                                           //Add rigid area to the content pane
 
 
             //Add Credits Text
-            JLabel text = new JLabel("Credits");
-            text.setAlignmentX(Component.CENTER_ALIGNMENT);
-            frame.getContentPane().add(text);
+            JLabel text = new JLabel("Credits");       //Create new text that says Credits
+            text.setAlignmentX(Component.CENTER_ALIGNMENT); //Set alignment of the text
+            frame.getContentPane().add(text);               //Add text to content pane
 
-            frame.getContentPane().revalidate();
-            frame.getContentPane().repaint();
+            frame.getContentPane().revalidate();  //Revalidate content pane
+            frame.getContentPane().repaint();     //Repaint the content pane
         }
     }
 
+    /********************************************
+    Class for action listener for the quit button
+     *******************************************/
     static class quitButtonAction implements ActionListener
     {
+        //Action Performed Listener
         public void actionPerformed(ActionEvent e)
         {
+            //Exit program
             System.exit(0);
         }
     }
 
+    /********************************************
+    Class for action listener for the back button
+     *******************************************/
     static class backButtonAction implements ActionListener
     {
-        JFrame frame;
+        JFrame frame;  //Reserve space for the frame
 
+
+        /**
+        Setter for the frame
+         */
         public void setFrame(JFrame frm)
         {
-            frame = frm;
+            frame = frm;  //Set frame to the frame that was sent
         }
 
+        /**
+        Action Performed method
+         */
         public void actionPerformed(ActionEvent e)
         {
             //Clear Components from frame
             frame.getContentPane().removeAll();
 
+            Menu mens = new Menu(frame);  //Create menu
+            mens.addButtons();            //Add buttons to menu
 
-            Menu mens = new Menu(frame);
-            mens.addButtons();
-
-            frame.getContentPane().revalidate();
-            frame.getContentPane().repaint();
+            frame.getContentPane().revalidate();  //Revalidate content pane
+            frame.getContentPane().repaint();     //Repaint content pane
         }
     }
 }
