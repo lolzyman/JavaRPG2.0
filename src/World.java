@@ -162,7 +162,7 @@ public class World extends JPanel implements ActionListener
     //spawns the player at the location loaded by the class
     public void spawnPlayer(){
         int[] charPos = map.getCharPos();
-        me = new Character("nonClass/character.png",this, charPos[0], charPos[1], 2, 1, 1, 1, 5);
+        me = new Character("nonClass/character.png",this, charPos[0], charPos[1], 2, 4, 1, 1, 5);
         me.setMap(mapGrid);
     }
     //Checks the players death and handles everything surrounding that. Handles the death of Monsters as well
