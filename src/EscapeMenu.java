@@ -54,85 +54,114 @@ public class EscapeMenu
 
     static class continueAction implements ActionListener
     {
-        JFrame frame;
-        JPanel glass;
-        JButton play;
-        JButton mainMenu;
+        JFrame frame;        //Reserved for frame
+        JPanel glass;        //Reserved for glass
+        JButton play;        //Reserved for play button
+        JButton mainMenu;    //Reserved for mainMenu
 
+        /**
+        Setter for the frame
+         */
         public void setFrame(JFrame frm)
         {
             frame = frm;
         }
 
+        /**
+        Setter for the glass
+         */
         public void setGlass(JPanel glss)
         {
             glass = glss;
         }
 
+        /**
+        Setter for the continue button
+         */
         public void setContinue(JButton cont)
         {
             play = cont;
         }
 
+        /**
+        Setter for the main menu button
+         */
         public void setMainMenu(JButton menBt)
         {
             mainMenu = menBt;
         }
 
+        /**
+        Action performed for continue button
+         */
         public void actionPerformed(ActionEvent e)
         {
-            glass.setVisible(false);
-            glass.remove(play);
-            glass.remove(mainMenu);
+            glass.setVisible(false);   //Set the glass pane invisible
+            glass.remove(play);        //Remove the play button
+            glass.remove(mainMenu);    //Remove the main menu button
 
-            //Re add escape listener
-            EscapeListener esc = new EscapeListener();
-            frame.addKeyListener(esc);
-            esc.addFrame(frame);
+            EscapeListener esc = new EscapeListener();  //Create escape listener
+            frame.addKeyListener(esc);                  //Add key listener for escape button
+            esc.addFrame(frame);                        //Add listener to the frame
         }
     }
 
 
     private static class exitToMenuListener implements ActionListener
     {
-        JFrame frame;
-        JPanel glass;
-        JButton menuButton;
-        JButton play;
+        JFrame frame;           //Reserved for frame
+        JPanel glass;           //Reserved for glass panel
+        JButton menuButton;     //reserved for menuButton
+        JButton play;           //Reserved for play button
 
+        /**
+        Setter for frame
+         */
         public void setFrame(JFrame frm)
         {
             frame = frm;
         }
 
+        /**
+        Setter for glass pane
+         */
         public void setGlass(JPanel glss)
         {
             glass = glss;
         }
 
+        /**
+        Setter for menu button
+         */
         public void setMenuButton(JButton menBt)
         {
             menuButton = menBt;
         }
 
+        /**
+        Setter for play button
+         */
         public void setPlay(JButton ply)
         {
             play = ply;
         }
 
+        /**
+        Action performed
+         */
         public void actionPerformed(ActionEvent e)
         {
-            glass.setVisible(false);
-            glass.remove(menuButton);
-            glass.remove(play);
+            glass.setVisible(false);   //Set the glass invisible
+            glass.remove(menuButton);  //Remove the menu button
+            glass.remove(play);        //Remove the play button
 
             //frame.getContentPane().remove(glass);
 
-            Menu men = new Menu(frame);
-            men.addButtons();
+            Menu men = new Menu(frame); //Create menu and send frame
+            men.addButtons();           //Add buttons to the menu
 
-            frame.getContentPane().revalidate();
-            frame.getContentPane().repaint();
+            frame.getContentPane().revalidate();  //Revalidate the content pane
+            frame.getContentPane().repaint();     //Repaint the content pane
         }
     }
 
