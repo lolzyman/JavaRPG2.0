@@ -6,84 +6,44 @@ import javax.swing.JPanel;
 @SuppressWarnings("serial")
 public class World extends JPanel implements ActionListener
 {
-
-    //<editor-fold desc="Last Working Revisions Variables------PreSubImage">
-    //<editor-fold desc=".">
-    //Dictates the period of the ActionListener
-    //</editor-fold>
+    //Time delay for the timer class
 	int timerSpeed = 5;
-    //<editor-fold desc=".">
-    //Defines the timer to call the method ActionPerformed
-    //</editor-fold>
+	//Timer for the action listener
     Timer t = new Timer(timerSpeed, this);
-    //<editor-fold desc=".">
-    //The details grid of the map. As of present, the grid reads [y][x] instead of [x][y]
-    //</editor-fold>
-
-    //<editor-fold desc=".">
     /**
      * Item Arrays for the map. Contains:
      * mapGrid: Data For the Map
      * coins: Loose Coins on the map that can be collected
      * mobs: monsters on the map.
      */
-    //</editor-fold>
+    //Array that contains all the information on the map.
     int[][][] mapGrid;
+    // Stacks for handling all the coins and the arrays.
+    // Also has the index values for them
     MultiPurposeStack   coins = new MultiPurposeStack(),
                         mobs = new MultiPurposeStack();
     int                 coinId = 1,
                         mobsId = 1;
-
-    //<editor-fold desc=".">
-    //Class that contains the background image
-    //</editor-fold>
+    //Class for handling the background image
     BackgroundImage back = new BackgroundImage();
-    //<editor-fold desc=".">
-    //Class that contains the Character
-    //</editor-fold>
+    //Class for handling the character
     Character me;
-    //<editor-fold desc=".">
-    //Class that opens and reads the file holding all the data about the map
-    //</editor-fold>
+    //Loads all the information of the map stored in the text file.
     LoadMap map = new LoadMap("nonClass/map2.txt");
-    //<editor-fold desc=".">
-    //Linked-list for the keys
-    //Could be changed to an array stack to handle less processing power
-    //</editor-fold>
+    //Stack for handling the WASD key inputs
     MultiPurposeStack keyArrayWASD;
-    //<editor-fold desc=".">
-    //Master listener for handling the keystrokes form the key board
-    //presently handles only the wasd keys but nothing else.
-    //can be expanded for other keys input types
-    //</editor-fold>
+    //Class for handling all KeyListeners
     MasterKeyListener master;
-
-    //</editor-fold>
-
+    // Offset for drawing the world. In pixels and allows the movement of the map as the character gets close to the edge
     int masterOffsetx, masterOffsety;
-
+    //frame containing the world?
     JFrame frame;
-
-    //Constructor
+    //Constructor.
+    //Handles the importing of map details, character position, mob locations, coin location.
     public World(JFrame frm){
-        setFocusTraversalKeysEnabled(false);		//not sure what this crap does
-
+        setFocusTraversalKeysEnabled(false);
         frame = frm;
-
-        //add listener for escape key
-        //escapeListener esc = new escapeListener();
-        //frame.addKeyListener(esc);
-        //esc.addFrame(frame);
-
-        //EscapeListener esc = new EscapeListener();
-        //esc.addFrame(frame);
-        //frame.addKeyListener(esc);
-
-
-
-        //Class that is based around importing from csv files
         ImportCSV importer = new ImportCSV();
-        //imports the terrain data for the map.
         mapGrid = importer.importArray("nonClass/map2.csv");
         int midabcde[][] = map.getCoins();
         for(int i = 0; i < midabcde.length; i++){
@@ -93,17 +53,13 @@ public class World extends JPanel implements ActionListener
         for(int i = 0; i < midabcde.length; i++){
             addMob(midabcde[i][0],midabcde[i][1],midabcde[i][2]);
         }
-
         spawnPlayer();
-        //Allows to the master to attach the keystroke listener to the jpanel
         master = new MasterKeyListener(this);
-        //assigns the pointer for the KeyArrayWASD so we can handel wasd input
         keyArrayWASD = master.getKeyArrayWASD();
         t.start();
-
         back.setImage("nonClass/map2.png");
     }
-    //paints all the pretty pictures
+    //Updates the offset for drawing of the world based on the character positions.
     public void updateOffset(){
         int mex = me.getX(), mey = me.getY(), sightRange = me.getSightRange() * 16;
         int x = mex - masterOffsetx, y = mey - masterOffsety;
@@ -132,41 +88,31 @@ public class World extends JPanel implements ActionListener
         }
     }
     public void paint(Graphics g){
-
-    	//Called so we don't break anything
     	super.paint(g);
-
-        Graphics2D g2 = (Graphics2D)g;
-    	//sets the background color to red so it stands out if we are breaking anything
-    	//Will set to black in the final iteration
+    	//Sets the background color
     	setBackground(Color.BLACK);
-    	//draws the background image at its location
-    	//will try and turn this into a class-local method if possible
+    	//Draws the background
         g.drawImage(back.getImage(), back.getX() - masterOffsetx, back.getY() - masterOffsety, null);
-
-        //<editor-fold desc="This segment of code draws Coins, Mobs, and Character">
         Node inQuestion = coins.getHead();
+        //Draws all the coins
         while(inQuestion != coins.getFoot()){
             g.drawImage(inQuestion.getCoinValue().getImage(), inQuestion.getCoinValue().getX() - masterOffsetx, inQuestion.getCoinValue().getY() - masterOffsety, null);
             inQuestion = inQuestion.getChild();
         }
         if(inQuestion != null)
         g.drawImage(inQuestion.getCoinValue().getImage(), inQuestion.getCoinValue().getX() - masterOffsetx, inQuestion.getCoinValue().getY() - masterOffsety, null);
-
         inQuestion = mobs.getHead();
+        //Draws all the monsters
         while(inQuestion != mobs.getFoot()){
             g.drawImage(inQuestion.getMonsterValue().getImage(), inQuestion.getMonsterValue().getX() - masterOffsetx, inQuestion.getMonsterValue().getY() - masterOffsety, null);
             inQuestion = inQuestion.getChild();
         }
         if(inQuestion != null)
             g.drawImage(inQuestion.getMonsterValue().getImage(), inQuestion.getMonsterValue().getX() - masterOffsetx, inQuestion.getMonsterValue().getY() - masterOffsety, null);
-
+        //Draws the charater
         g.drawImage(me.getImage(),me.getX() - masterOffsetx,me.getY() - masterOffsety,null);
-        //</editor-fold>
-
     }
-    //Method called by the ActionListener every time the timer completes its cycle
-    //Still needs to be touched up
+    //Used as our run method., Called every cycle.
     public void actionPerformed(ActionEvent e){
     	//checks to see if there are any keys that in the linked-list keyArrayWASD
         /**
@@ -198,12 +144,14 @@ public class World extends JPanel implements ActionListener
         checkDeath();
     	repaint();
     }
+    //Method for adding coins to the world.
     public void addCoin(int gx, int gy, int value){
         Coin apple = new Coin(gx, gy, coinId, value);
         mapGrid[gy][gx][3] = coinId;
         coins.addEnd(apple);
         coinId++;
     }
+    //Method for adding monsters to the class
     public void addMob(int gx, int gy, int type){
         Monster monster = new Monster(gx, gy, type, mobsId);
         mapGrid[gy][gx][2] = mobsId;
@@ -211,13 +159,13 @@ public class World extends JPanel implements ActionListener
         mobs.addBeginning(monster);
         mobsId++;
     }
+    //spawns the player at the location loaded by the class
     public void spawnPlayer(){
-        // gets the starting position on the map for the player
         int[] charPos = map.getCharPos();
         me = new Character("nonClass/character.png",this, charPos[0], charPos[1], 2, 1, 1, 1, 5);
-        //passes the terrain statistics to the character for movement
         me.setMap(mapGrid);
     }
+    //Checks the players death and handles everything surrounding that. Handles the death of Monsters as well
     public void checkDeath(){
         if(!me.isDeath()) {
             me.update();
@@ -248,6 +196,7 @@ public class World extends JPanel implements ActionListener
         }
     }
 
+    //<editor-fold desc="Something Noah was working on">
     /*
     private static class escapeListener extends KeyAdapter
     {
@@ -275,4 +224,5 @@ public class World extends JPanel implements ActionListener
             }
         }
     }*/
+    //</editor-fold>
 }

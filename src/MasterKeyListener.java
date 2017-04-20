@@ -5,10 +5,19 @@ import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
 public class MasterKeyListener{
-	MultiPurposeStack 	keyArrayWASD = new MultiPurposeStack(),
-						keyArrayArrows = new MultiPurposeStack();
+	//Creates a stack that we use to main Key values
+	//We are using stacks because we are unsure how many keys we are holding down at once.
+	//We create different classes to hold different categories of key inputs.
+	//The stacks maintain which keys were pressed in what order, the Manager Classes maintain which keys are down or not.
+
+	//Creates a stack for WASD keys
+	MultiPurposeStack 	keyArrayWASD = new MultiPurposeStack();
+
+	//Creates a manager Class to help maintain which keys are down.
     WASDKeyManager manager = new WASDKeyManager();
+    //Variable so we only have to type so much so ofter
 	public static final int IFW = JComponent.WHEN_IN_FOCUSED_WINDOW;
+	//Strings so we can make things more readable
     public static final String 	MOVE_UP = "move up",
     							MOVE_LEFT = "move left",
     							MOVE_RIGHT = "move right",
@@ -17,9 +26,12 @@ public class MasterKeyListener{
     	    					MOVE_LEFTR = "stop left",
     	    					MOVE_RIGHTR = "stop right",
     	    					MOVE_DOWNR = "stop down";
+    //Getter for the WASD stack
 	public MultiPurposeStack getKeyArrayWASD() {
 		return keyArrayWASD;
 	}
+	//Constructor
+	//Assigns things to the input map and to the action map. 2 in each map for each key, one for press, the other for releaseing
 	public MasterKeyListener(World target){
 		target.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_W, 0, false), MOVE_UP);
 		target.getInputMap(IFW).put(KeyStroke.getKeyStroke(KeyEvent.VK_S, 0, false), MOVE_DOWN);
@@ -40,20 +52,30 @@ public class MasterKeyListener{
 	}
 }
 @SuppressWarnings("serial")
+//Needed to work with the Action Map. Gets called by it
 class Listener extends AbstractAction{
+	//Creates the variables String, the stack that the key corresponds to, the type of action, and the manager
+	//Associated with the key
 	String Key = null;
 	MultiPurposeStack banana = null;
 	boolean add = false;
 	WASDKeyManager manager;
+	//Constructor
+	//Populates the above variables
 	public Listener(MultiPurposeStack b, String key, boolean keyPressed, WASDKeyManager manage){
 		banana = b;
 		Key = key;
 		add = keyPressed;
 		manager = manage;
 	}
+	//overrides the basic actionPerformed method
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//Handles keys when being added
 		if(add){
+			//Switch statement deals with all the possible keys
+			//For all the add functions, we had a condition that prevents extra lines of code if the key is already
+			//Considered true. This deals with held keys
 			switch(Key){
 			case "D":
 				if(!manager.isKey_d()){
@@ -80,6 +102,9 @@ class Listener extends AbstractAction{
 				}
 				break;
 			}
+			//This else part deals with keys being removed
+			//Contains the same if statements, but not need by nature of the removal
+			//Only there as a precaution
 		}else{
 			switch(Key){
 			case "D":
