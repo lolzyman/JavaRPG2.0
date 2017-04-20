@@ -13,42 +13,42 @@ import java.io.IOException;
 
 public class EscapeMenu
 {
-    JFrame frame;
+    JFrame frame;                                               //Receives the main JFrame
     //JFrame frame2 = new JFrame("EscapeMenu");
-    private BufferedImage image;
+    private BufferedImage image;                                //image stored to be painted
 
     public EscapeMenu(JFrame frm)
     {
         frame = frm;
-    }
+    }              //Passes the frame in
 
 
     public void escape()
     {
-        final JPanel glass = (JPanel) frame.getGlassPane();
-        glass.setVisible(true);
-        glass.setLayout(new GridBagLayout());
-        frame.add(glass);
-        frame.getContentPane().repaint();
+        final JPanel glass = (JPanel) frame.getGlassPane();     //creates a panel that blocks keyclicks (mouse and keyboard) from effecting the game
+        glass.setVisible(true);                                 //makes the panel visible
+        glass.setLayout(new GridBagLayout());                   //creates a layout on the panel
+        frame.add(glass);                                       //adds the glass panel to the frame
+        frame.getContentPane().repaint();                       //repaints previous panel (which is empty)
 
-        continueAction listener = new continueAction();
-        JButton glassButton = new JButton("Continue");
-        listener.setFrame(frame);
-        listener.setGlass(glass);
-        listener.setContinue(glassButton);
-        glassButton.addActionListener(listener);
-        glass.add(glassButton);
+        continueAction listener = new continueAction();         //creates object which implements the action listener
+        JButton glassButton = new JButton("Continue");      //creates a new button called "Continue"
+        listener.setFrame(frame);                               //sets the 1st action listener to the frame
+        listener.setGlass(glass);                               //sets the 1t action listener to the glass pane
+        listener.setContinue(glassButton);                      //sets the 1st action listener to the "continue" button
+        glassButton.addActionListener(listener);                //adds the 1st action listener to the "continue" button
+        glass.add(glassButton);                                 //adds the "continue" button to the glass pane
 
 
-        exitToMenuListener menuList = new exitToMenuListener();
-        JButton menuButton = new JButton("Main Menu");
-        menuList.setFrame(frame);
-        menuList.setGlass(glass);
-        menuList.setMenuButton(menuButton);
-        menuList.setPlay(glassButton);
-        listener.setMainMenu(menuButton);
-        menuButton.addActionListener(menuList);
-        glass.add(menuButton);
+        exitToMenuListener menuList = new exitToMenuListener(); //creates object which implements action listener
+        JButton menuButton = new JButton("Main Menu");      //creates a new button called "Main Menu"
+        menuList.setFrame(frame);                               //sets the 2nd action listener to the frame
+        menuList.setGlass(glass);                               //sets the 2nd action listener to the glass pane
+        menuList.setMenuButton(menuButton);                     //sets the 2nd action listener to the "menu" button
+        menuList.setPlay(glassButton);                          //sets the 2nd action listener to the "continue" button
+        listener.setMainMenu(menuButton);                       //sets the 1st action listener to the "menu" button
+        menuButton.addActionListener(menuList);                 //adds the 2nd action listener to the "menu"
+        glass.add(menuButton);                                  //adds the "menu" button to the glass pane
     }
 
 
