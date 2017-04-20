@@ -52,6 +52,7 @@ public class EscapeMenu
     }
 
 
+
     static class continueAction implements ActionListener
     {
         JFrame frame;        //Reserved for frame
