@@ -6,18 +6,25 @@ import java.io.IOException;
 /**
  * Created by Mark on 3/19/2017.
  */
-public class Object extends JComponent {
+public class Object{
+    /*
+     * variables:
+     *      image object
+     *      x and y positions
+     *      the grid positions
+     */
     private BufferedImage image;
     private int x = 0;
     private int y = 0;
-    private int xImageOffset = 0;
-    private int yImageOffset = 0;
     private int gridx = 0;
     private int gridy = 0;
-
+    //Constructor
     public Object(){
 
     }
+    //*******************//
+    //Getters And Setters//
+    //*******************//
     public BufferedImage getImage() {
         return image;
     }
@@ -34,13 +41,13 @@ public class Object extends JComponent {
         }
     }
     public int getX() {
-        return x - xImageOffset;
+        return x;
     }
     public void setX(int x) {
         this.x = x;
     }
     public int getY() {
-        return y - yImageOffset;
+        return y;
     }
     public void setY(int y) {
         this.y = y;
@@ -57,18 +64,7 @@ public class Object extends JComponent {
     public void setGridy(int gridy) {
         this.gridy = gridy;
     }
-    public void setxImageOffset(int xImageOffset) {
-        this.xImageOffset = xImageOffset;
-    }
-    public void setyImageOffset(int yImageOffset) {
-        this.yImageOffset = yImageOffset;
-    }
-    public int getxImageOffset(){
-        return  xImageOffset;
-    }
-    public int getyImageOffset(){
-        return xImageOffset;
-    }
+    //Method used when creating the class to set the pixel location based on the grid position.
     public void updatePosOnGrid(){
         x = gridx*16;
         y = gridy*16;

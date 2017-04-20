@@ -1,0 +1,12 @@
+Class: BackGroundImage      Extends Entity
+    Variables:
+        No Variables
+    Methods:
+        public BackgroundImage():
+            Type:
+                Constructor
+            Desc:
+                It doesn't do anything.
+    Desc:
+        The Main function of the BackgroundImage class is to be a container so we can work with what the background is
+        doing.

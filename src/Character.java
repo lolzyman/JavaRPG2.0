@@ -1,16 +1,12 @@
 public class Character extends Entity{
 
-	//<editor-fold desc=".">
-	//x is the x pixel location, y is the y pixel location, gridx is the x grid location,
-	//gridy is the grid y location, buffdir is the limbo direction, dir is the active direction
-	//</editor-fold>
-
+    //holds the world class so that we can update the map relative to the screen
 	private World environment;
+	//How far the player can see. This is needed for moving the screen around and eventually fog clearing
 	private int sightRange = 0;
-	//checks to see if the block in from of the character is walkable
-	//sets the direction buffer so the class can handle in between inputs
-	//This method is absolutely needed, no other implementation is possible
-	//This Constructor is for the Modified program
+	//The constructor for the Class. assigns the image, the environment variable, the gird positions, the sight range
+    // and the basic entity variables.
+    // calls the method to update the x and y position for the Entity.
 	public Character(String image, World planet, int gridx, int gridy, int health, int speed, int agility, int power, int sight){
         environment = planet;
         sightRange = sight;
@@ -23,6 +19,8 @@ public class Character extends Entity{
         setPower(power);
         updatePosOnGrid();
     }
+    //Checks to see if the position that it is advancing upon contains a coin. will need future work to add the
+    //coin value to the players purse
 	public void checkCoins(){
 		if(getMap()[getGridy()][getGridx()][3] != 0) {
 			if(environment.coins.deleteCoinIndex(getMap()[getGridy()][getGridx()][3])){
@@ -30,9 +28,13 @@ public class Character extends Entity{
 			}
 		}
 	}
+	//Method that handles attacking monsters
 	public void attackMonster(){
+	    //checks to see if there is a monster to attack.
 	    if(getMap()[getGridy()][getGridx()][2] != 0){
+	        //called if there is a monster to attack
             attack(environment.mobs.getNodeWithValue(getMap()[getGridy()][getGridx()][2]).getMonsterValue());
+            //this switch statement is here to push the player back, like there is knockback.
             switch (getDir()){
                 case 0:
                     setY(getY() + 16);
@@ -54,12 +56,19 @@ public class Character extends Entity{
     }
 	@Override
     public void update(){
+	    //adds 3 methods to the class.
+        //Adjusts the map position relative to the screen
+        //checks for coins, and checks for monsters
 	    super.update();
 	    environment.updateOffset();
 	    checkCoins();
 	    attackMonster();
     }
+    //Handles the attacking for the monsters
     public void attack(Monster monster) {
+        //Compares the agility values of each of the Entities, and allows the quicker one to attack first
+        //If the first attack kills the other, the quicker one doesn't receive any damage.
+        //If them agility values are the same, then both Entities are dealt damage, regardless of if it kills anyone
         if (monster.getAgility() > getAgility()) {
             setHealth(getHealth()- monster.getPower());
             if(!isDeath()) {
@@ -75,10 +84,8 @@ public class Character extends Entity{
             setHealth(getHealth()- monster.getPower());
         }
     }
+    //Getter for sight range
     public int getSightRange(){
         return sightRange;
-    }
-    public void setSightRange(int sight){
-        sightRange = sight;
     }
 }

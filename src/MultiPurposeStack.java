@@ -216,6 +216,7 @@ public class MultiPurposeStack {
 		}
 	}
 	public boolean deleteNode(Node node){
+		//Deletes the node Matching the address.
 		Node inQuestion = getHead();
 		if(getFoot() == node){
 			deleteEnd();
@@ -236,6 +237,7 @@ public class MultiPurposeStack {
 		return false;
 	}
 	public void deleteAt(int index){
+		//Deletes the node at the position of index
 		if(!isEmpty()){
 			if(index == 1){
 				deleteBeginning();
@@ -257,6 +259,7 @@ public class MultiPurposeStack {
 		}
 	}
 	public Node getNodeAt(int a){
+		//Returns the node at position a in the stack
 		Node que = head;
 		for(int i = 1; i < a; i++){
 			if(que!=foot){
@@ -266,6 +269,7 @@ public class MultiPurposeStack {
 		return que;
 	}
 	public Node getNodeWithValue(int id){
+		//Used to get the node containing the monster Class with the input id value.
 		Node inQuestion = getHead();
 		while (inQuestion != getFoot()){
 			if(inQuestion.getMonsterValue().getId() == id){
@@ -280,6 +284,7 @@ public class MultiPurposeStack {
 	}
 	//this can probably be written in a better fashion. like with a for loop
 	public void deleteValue(int value){
+		//Sorts through the stack and deletes the node that the has a matching value
 		Node inQuestion = head;
 		if(length == 1 && head.getIntValue() == value){
 			purge();
@@ -304,6 +309,7 @@ public class MultiPurposeStack {
 		
 	}
 	public void purge(){
+		//Deletes Every Element of the stack
 		Node inQuestion = head, yeh;
 		while(!inQuestion.equals(foot)){
 			yeh = inQuestion.getChild();
@@ -316,6 +322,7 @@ public class MultiPurposeStack {
 		length = 0;
 	}
 	public void deleteValue(String value){
+		//Sorts through the stack and deletes the node that the has a matching value
 		if(length == 1 && head.getStringValue().equals(value)){
 			purge();
 			return;
@@ -337,16 +344,17 @@ public class MultiPurposeStack {
 		}
 		length--;
 	}
-	public boolean deleteCoinIndex(int index){
-		if(length == 1 && head.getCoinValue().getIndex() == index){
+	public boolean deleteCoinIndex(int index) {
+		//Sorts through the stack and deletes the node that the has a matching value
+		if (length == 1 && head.getCoinValue().getIndex() == index) {
 			System.out.println(head.getCoinValue().getValue());
 			purge();
 			return true;
 		}
 		Node inQuestion = head;
-		while(inQuestion != foot){
-			if(inQuestion.getCoinValue().getIndex() == index){
-				if(inQuestion == head){
+		while (inQuestion != foot) {
+			if (inQuestion.getCoinValue().getIndex() == index) {
+				if (inQuestion == head) {
 					head = inQuestion.getChild();
 				}
 				System.out.println(inQuestion.getCoinValue().getValue());
@@ -356,7 +364,7 @@ public class MultiPurposeStack {
 			}
 			inQuestion = inQuestion.getChild();
 		}
-		if(inQuestion.getCoinValue().getIndex() == index){
+		if (inQuestion.getCoinValue().getIndex() == index) {
 			foot = inQuestion.getParent();
 			System.out.println(inQuestion.getCoinValue().getValue());
 			inQuestion.Destory();
@@ -365,13 +373,9 @@ public class MultiPurposeStack {
 		}
 		return false;
 	}
-	public Node getHead(){
-		return head;
-	}
-	public Node getFoot(){
-		return  foot;
-	}
 	public void displayMonserValues(){
+		//Were having problems with the Stack when applyed to the Monsters.
+		//Was used to gain feedback.
 		Node inque = head;
 		while(inque != (foot)){
 			System.out.print(inque.getMonsterValue().getId() + ",");
@@ -379,10 +383,19 @@ public class MultiPurposeStack {
 		}
 		System.out.println(foot.getMonsterValue().getId());
 	}
+	//Getters and Setters//
+	public Node getHead(){
+		return head;
+	}
+	public Node getFoot(){
+		return  foot;
+	}
 	
 }
 
 class Node{
+	//Variables are different values that the stack can maintain.
+	//Also contains pointers to the nodes in front and behind.
 	int intValue;
 	String stringValue;
 	Coin coinValue;
@@ -390,6 +403,8 @@ class Node{
 	Node child, parent;
 	
 	public void Destory(){
+		//Removes all pointer pointing to the particular node.
+		//Sets the node up to be cleared by the garbage collector
 		if(child != null && parent != null){
 			child.setParent(parent);
 			parent.setChild(child);
@@ -405,6 +420,7 @@ class Node{
 		parent = null;
 	}
 	public void displayContent(){
+		//Displays the content of the the node
 		System.out.println(intValue);
 		System.out.println(stringValue);
 		System.out.println(coinValue);
