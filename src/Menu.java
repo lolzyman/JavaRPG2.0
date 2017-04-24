@@ -27,7 +27,7 @@ public class Menu extends JPanel
         //The following gets the image for the background
         try
         {
-            image = ImageIO.read(getClass().getResourceAsStream("nonClass/Cover_Girl.jpg"));
+            image = ImageIO.read(getClass().getResourceAsStream("nonClass/Cover_Girl.png"));
         }
         catch(IOException e)
         {
